@@ -9,7 +9,7 @@ import java.util.List;
 
 public class HomePage extends BasePage{
 
-    public WebElement getSpartan(String id){
+    public WebElement getSpartan(int id){
         return Driver.get().findElement(By.id("view_spartan_"+id));
     }
 
