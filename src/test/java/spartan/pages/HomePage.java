@@ -9,11 +9,16 @@ import java.util.List;
 
 public class HomePage extends BasePage{
 
-    public WebElement getSpartan(int id){
-        return Driver.get().findElement(By.id("view_spartan_"+id));
+    public WebElement getSpartan(String id){
+        return Driver.get().findElement(By.xpath("//tbody//tr//td[.='"+id+"']/../td[5]"));
     }
 
     @FindBy(xpath = "//tbody//tr")
     public List<WebElement> allSpartans;
+
+    @FindBy(xpath = "//tbody//tr//td[1]")
+    public List<WebElement> allSpartanIDs;
+
+
 
 }

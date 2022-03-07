@@ -16,7 +16,9 @@ import java.util.Random;
 public class spartanStepDefs {
 
         HomePage homePage = new HomePage();
-    int randomSpartan;
+
+    String randomSpartanID;
+
 
     @Given("user is on the Spartan Home Page")
     public void user_is_on_the_Spartan_Home_Page() {
@@ -26,13 +28,17 @@ public class spartanStepDefs {
     @When("user clicks on any random Spartan and view the Data")
     public void user_clicks_on_any_random_Spartan_and_view_the_Data() {
 
-        int sizeOfAllSpartans = homePage.allSpartans.size();
+        List<String> allIDs = BrowserUtils.getElementsText(homePage.allSpartanIDs);
+
+        int sizeOfAllSpartans = allIDs.size();
 
         Random random = new Random();
 
-        randomSpartan = random.nextInt(sizeOfAllSpartans);
+       int randomSpartanNumber = random.nextInt(sizeOfAllSpartans);
 
-        homePage.getSpartan(randomSpartan).click();
+        randomSpartanID = allIDs.get(randomSpartanNumber);
+
+        homePage.getSpartan(randomSpartanID).click();
 
         BrowserUtils.waitFor(3.0);
 
@@ -42,7 +48,7 @@ public class spartanStepDefs {
     @Then("spartan info should be same with DB")
     public void spartanInfoShouldBeSameWithDB() {
 
-        String query = "select * from spartans where SPARTAN_ID='"+randomSpartan+"'";
+        String query = "select * from spartans where SPARTAN_ID='"+randomSpartanID+"'";
 
         Map<String, Object> rowMap = DBUtils.getRowMap(query);
 
